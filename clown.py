@@ -37,6 +37,7 @@ class Clown:
         self._acts = [self.clown, self.circus[1]]
         self._call_character(self.clown)
         self._commence()
+        self._continue_show()
 
     def _call_character(self, character: str) -> None:
         """
@@ -86,7 +87,58 @@ class Clown:
         verb = "catch" if catcher[-1] == 's' else "catches"
         print("{} {} {}.".format(catcher.capitalize(), verb, caught))
 
+    def _continue_show(self) -> None:
+        """
+        This loops through the remaining characters.
 
+        Each character is called, added to the _acts, and carried.
+        """
+        for character in self.circus[len(self._acts):]:
+            self._call_character(character)
+            self._acts.append(character)
+            self._carry_the_character(character)
+
+    def _carry_the_character(self, character: str) -> None:
+        """
+        The character is caught and carried.
+
+        Args:
+            character (str): The current character to be caught and carried.
+        """
+        count = len(self._acts)
+        self._catch_character(character)
+
+        if count == 3:
+            self._carry_current()
+        elif count % 2 == 0:
+            self._consider_to_carry()
+            self._try_to_carry()
+
+    def _carry_current(self):
+        """Prints out the current acts Clarence is carrying."""
+        clown_carrier ="{} carrying {}".format(self.clown, self._acts[1])
+        current_acts = [f" and {act}. " for act in self._acts[2:]]
+        clown_carrier += "".join(current_acts)
+        print(f"{clown_carrier}")
+
+    def _try_to_carry(self) -> None:
+        """
+        Clarence Clown tries to carry the current characters
+
+        If Clarence Clown can carry the current characters, a confirmation is printed.
+        Else the program cancels.
+
+        Raises:
+            Exception: If the number of carried acts is greater than the maximum acts.
+        """
+        try:
+            if len(self._acts) > self.max_acts:
+                raise Exception("Cancel!")
+            
+            print("Yes. {} can.".format(self.clown))
+        except:
+            CRASH, RESET = "\033[91m", "\033[0m"
+            print("{}CRASH \nNo. {} can't. {}".format(CRASH, self.clown, RESET))
 
 
 clown = Clown()

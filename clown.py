@@ -36,6 +36,7 @@ class Clown:
         print("{}.".format(self.clown.split()[-1]))
         self._acts = [self.clown, self.circus[1]]
         self._call_character(self.clown)
+        self._commence()
 
     def _call_character(self, character: str) -> None:
         """
@@ -46,6 +47,46 @@ class Clown:
         """
         punctuation = "!" if len(self._acts)+1 == self.max_acts else "."
         print(character[0].upper()+character[1:]+punctuation) if character != self.circus[-1] else None
+
+    def _commence(self):
+        """The act with the cat. The charcter is called and caught."""
+        self._call_character(self._acts[-1])
+        self._consider_to_carry()
+        self._catch_character(self._acts[-1])
+
+    def _consider_to_carry(self) -> None:
+        """"
+        Prints a question about Clarence carrying the current acts.
+        Clarence considers to carry the current characters.
+        """
+        count = len(self._acts) -1
+        hesitate = "..."
+        if count >= self.max_acts:
+            self._acts[count] = "{} {}".format(hesitate, self._acts[count])
+        
+        verb = "catch" if count < 3 else "carry"
+
+        clown_considered = f"Can {self.clown} {verb} {self._acts[1]}"
+        carried_acts = [f" and {act}" for act in self._acts[2:]]
+
+        clown_considered += "".join(carried_acts)
+        print(f"{clown_considered}?")
+
+    def _catch_character(self, character: str) -> None:
+        """
+        Prints out the top act caught the character.
+
+        Args:
+            character (str): the caught character
+        """
+        if len(self._acts) > self.max_acts:
+            return
+        
+        catcher, caught = self._acts[-2], character
+        verb = "catch" if catcher[-1] == 's' else "catches"
+        print("{} {} {}.".format(catcher.capitalize(), verb, caught))
+
+
 
 
 clown = Clown()

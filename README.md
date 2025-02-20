@@ -4,7 +4,8 @@ This program prints the book: C is for Clown - A Circus of "C" Words.
 ![book-cover](https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1361407156i/1852198._UY322_SS322_.jpg)
 
 ### Live Coding Video
-The video is used to demo and explain the process of the program.
+The video is used to demo and explain the process of the program.  
+![Demo](https://www.youtube.com/watch?v=OA8NjgzpQZY)  
 
 ### Print Out
 Clown.  
